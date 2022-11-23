@@ -9,5 +9,5 @@ class Mahasiswa extends Model
 {
     use HasFactory;
     public $table = "mahasiswa";
-    public $fillable = ['nim', 'nama', 'umur', 'alamat', 'kota', 'kelas', 'jurusan'];
+    protected $guarded = [];
 }

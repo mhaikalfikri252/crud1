@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MahasiswaController;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,12 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Authentication
-Route::post('/insert', [MahasiswaController::class, 'create']);
-Route::get('/read', [MahasiswaController::class, 'read']);
-Route::post('/update', [MahasiswaController::class, 'update']);
-Route::delete("/delete", [MahasiswaController::class, 'delete']);
+Route::get('/', function () {
+    return view('welcome');
+});
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::post('/create', [MahasiswaController::class, 'create']);
+Route::get('/update', [MahasiswaController::class, 'update']);
+Route::get('/delete', [MahasiswaController::class, 'delete']);
+Route::get('/readall', [MahasiswaController::class, 'readall']);
+Route::get('/readbynim', [MahasiswaController::class, 'readbynim']);

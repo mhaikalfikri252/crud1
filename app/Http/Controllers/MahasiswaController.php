@@ -7,34 +7,52 @@ use Illuminate\Http\Request;
 
 class MahasiswaController extends Controller
 {
-    function read($id = null)
+    public function create(Request $request)
     {
-        if (isset($id)) {
-            $mahasiswa = Mahasiswa::findOrFail($id);
-            return response()->json(['msg' => 'Data retrieved', 'data' => $mahasiswa], 200);
-        } else {
-            $mahasiswa = Mahasiswa::get();
-            return response()->json(['msg' => 'Data retrieved', 'data' => $mahasiswa], 200);
-        }
+        $data = @$request->json()->all();
+        $data['created_at'] = date("Y-m-d H:i:s");
+        $data['updated_at'] = date("Y-m-d H:i:s");
+
+        $model = new Mahasiswa();
+        $model->insert($data);
+        echo "Data mahasiswa berhasil ditambahkan";
     }
 
-    function create(Request $request)
+    public function readall()
     {
-        $mahasiswa = Mahasiswa::create($request->all());
-        return response()->json(['msg' => 'Data created', 'data' => $mahasiswa], 201);
+        $data = Mahasiswa::all();
+        $data = json_encode($data);
+        print_r($data);
     }
 
-    function update($id, Request $request)
+    public function readbynim(Request $request)
     {
-        $mahasiswa = Mahasiswa::findOrFail($id);
-        $mahasiswa->update($request->all());
-        return response()->json(['msg' => 'Data updated', 'data' => $mahasiswa], 200);
+        $data = Mahasiswa::where('nim', $request->nim)->get();
+        $data = json_encode($data);
+        print_r($data);
     }
 
-    function destroy($id)
+    public function update(Request $request)
     {
-        $mahasiswa = Mahasiswa::findOrFail($id);
-        $mahasiswa->delete();
-        return response()->json(['msg' => 'Data deleted'], 200);
+        $data = @$request->json()->all();
+        $data['created_at'] = date("Y-m-d H:i:s");
+        $data['updated_at'] = date("Y-m-d H:i:s");
+
+        Mahasiswa::where('nim', $request->nim)->update([
+            'nama' => $request->nama,
+            'umur' => $request->umur,
+            'alamat' => $request->alamat,
+            'kota' => $request->kota,
+            'kelas' => $request->kelas,
+            'jurusan' => $request->jurusan,
+        ]);
+
+        echo "Data mahasiswa berhasil diupdate";
+    }
+
+    public function delete(Request $request)
+    {
+        Mahasiswa::where('nim', $request->nim)->delete();
+        echo "Berhasil menghapus data mahasiswa";
     }
 }
