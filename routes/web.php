@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\MahasiswaController;
-use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\MahasiswaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,8 +19,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('/create', [MahasiswaController::class, 'create']);
-Route::get('/update', [MahasiswaController::class, 'update']);
-Route::get('/delete', [MahasiswaController::class, 'delete']);
-Route::get('/readall', [MahasiswaController::class, 'readall']);
-Route::get('/readbynim', [MahasiswaController::class, 'readbynim']);
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+Route::get('/login', function () {
+    return response('Anda tidak diizinkan!');
+})->name('login');
