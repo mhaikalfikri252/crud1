@@ -24,11 +24,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/register', [RegisterController::class, 'register']);
 Route::post('/login', [RegisterController::class, 'login']);
 
-Route::post('/create', [MahasiswaController::class, 'create']);
-Route::post('/update', [MahasiswaController::class, 'update']);
-Route::delete('/delete', [MahasiswaController::class, 'delete']);
-Route::get('/readall', [MahasiswaController::class, 'readall']);
-Route::get('/readbynim', [MahasiswaController::class, 'readbynim']);
+// Route::post('/create', [MahasiswaController::class, 'create']);
+// Route::get('/readall', [MahasiswaController::class, 'readall']);
+// Route::get('/readbynim', [MahasiswaController::class, 'readbynim']);
+// Route::post('/update', [MahasiswaController::class, 'update']);
+// Route::delete('/delete', [MahasiswaController::class, 'delete']);
+
+Route::post('/create', [MahasiswaController::class, 'create'])->name('create');
+Route::get('/read', [MahasiswaController::class, 'read'])->name('read');
+Route::post('/update', [MahasiswaController::class, 'update'])->name('update');
+Route::delete('/delete', [MahasiswaController::class, 'delete'])->name('delete');
 
 Route::middleware('auth:sanctum')->post('/create2', [MahasiswaController::class, 'create'])->name('create2');
 Route::middleware('auth:sanctum')->get('/read2', [MahasiswaController::class, 'read'])->name('read2');
