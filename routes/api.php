@@ -17,9 +17,14 @@ use App\Http\Controllers\MahasiswaController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
 
 Route::post('/register', [RegisterController::class, 'register']);
 Route::post('/login', [RegisterController::class, 'login']);
@@ -35,10 +40,10 @@ Route::get('/read', [MahasiswaController::class, 'read'])->name('read');
 Route::post('/update', [MahasiswaController::class, 'update'])->name('update');
 Route::delete('/delete', [MahasiswaController::class, 'delete'])->name('delete');
 
-Route::middleware('auth:sanctum')->post('/create2', [MahasiswaController::class, 'create'])->name('create2');
-Route::middleware('auth:sanctum')->get('/read2', [MahasiswaController::class, 'read'])->name('read2');
-Route::middleware('auth:sanctum')->post('/update2', [MahasiswaController::class, 'update'])->name('update2');
-Route::middleware('auth:sanctum')->delete('/delete2', [MahasiswaController::class, 'delete'])->name('delete2');
+Route::middleware('auth:api')->post('/create2', [MahasiswaController::class, 'create'])->name('create2');
+Route::middleware('auth:api')->get('/read2', [MahasiswaController::class, 'read'])->name('read2');
+Route::middleware('auth:api')->post('/update2', [MahasiswaController::class, 'update'])->name('update2');
+Route::middleware('auth:api')->delete('/delete2', [MahasiswaController::class, 'delete'])->name('delete2');
 
 Route::post('/tokens/create', function (Request $request) {
     $token = $request->createToken($request->token_name);
